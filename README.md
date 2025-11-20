@@ -107,7 +107,7 @@ Load → Through relay terminal (NO/COM)
 
 ## Hardware Setup
 
-
+temperature-control-system/docs
 
 ---
 
