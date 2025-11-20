@@ -114,7 +114,7 @@ Load → Through relay terminal (NO/COM)
 ## Code
 
 The full Arduino code is available in:
-/code/temp_control_final.ino
+temperature-control-system/code/temp_control_final.ino
 
 ---
 
