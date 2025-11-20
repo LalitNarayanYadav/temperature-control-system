@@ -113,7 +113,7 @@ This project demonstrates sensor–actuator integration, embedded programming, a
 
 ## Real Serial Monitor Output
 
-[View Serial Monitor Output](./docs/Serial-monitor-output.png)
+[View Serial Monitor Output](./docs/Serial-monitor-output.jpg)
 
 ---
 
