@@ -29,41 +29,52 @@ This project demonstrates sensor–actuator integration, embedded programming, a
 
 ## Circuit Diagram (Textual Description)
 
-### **DHT11 Sensor Wiring**
-DHT11 VCC → 5V
-DHT11 GND → GND
-DHT11 DATA → D2
+### DHT11 Sensor Wiring
+| DHT11 Pin | Arduino Pin |
+|-----------|-------------|
+| VCC       | 5V          |
+| GND       | GND         |
+| DATA      | D2          |
 
 ---
 
-### **Potentiometer (Set Temperature Control)**
-Left pin → 5V
-Right pin → GND
-Middle pin → A0 (analog input)
+### Potentiometer (Set Temperature Control)
+| Potentiometer Pin | Arduino Pin |
+|-------------------|-------------|
+| Left Pin          | 5V          |
+| Right Pin         | GND         |
+| Middle Pin        | A0 (analog input) |
 
 ---
 
-### **Fan PWM Wiring (via MOSFET)**
-Fan + → 12V
-Fan - → MOSFET Drain
-MOSFET Source → GND
-MOSFET Gate → D9 (PWM)
+### Fan PWM Wiring (via MOSFET)
+| Connection | Destination |
+|------------|-------------|
+| Fan +      | 12V Supply  |
+| Fan –      | MOSFET Drain |
+| MOSFET Source | GND      |
+| MOSFET Gate | D9 (PWM Pin) |
 
 ---
 
-### **Peltier Module Wiring**
-Peltier + → 12V
-Peltier - → MOSFET Drain
-MOSFET Gate → D10
-GND → Common Ground
+### Peltier Module Wiring
+| Peltier Pin | Connection |
+|-------------|------------|
+| Peltier +   | 12V Supply |
+| Peltier –   | MOSFET Drain |
+| MOSFET Gate | D10 |
+| Ground      | Common GND (Arduino + Battery) |
 
 ---
 
-### **Relay Module**
-Relay IN → D7
-Relay VCC → 5V
-Relay GND → GND
-Load → Through relay terminal (NO/COM)
+### Relay Module Wiring
+| Relay Pin | Arduino/Power Pin |
+|-----------|-------------------|
+| IN        | D7                |
+| VCC       | 5V                |
+| GND       | GND               |
+| Load      | NO/COM Terminals (External Load Switching) |
+
 
 ---
 
@@ -102,20 +113,20 @@ Load → Through relay terminal (NO/COM)
 
 ## Real Serial Monitor Output
 
-temperature-control-system/docs/Serial-monitor-output
+[View Serial Monitor Output](./docs/Serial-monitor-output.png)
 
 ---
 
 ## Hardware Setup
 
-temperature-control-system/docs
+[View Hardware Setup Images](./docs/)
 
 ---
 
 ## Code
 
-The full Arduino code is available in:
-temperature-control-system/code/temp_control_final.ino
+The full Arduino code is available here:  
+[**temp_control_final.ino**](./code/temp_control_final.ino)
 
 ---
 
