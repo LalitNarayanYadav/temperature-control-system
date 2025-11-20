@@ -102,6 +102,7 @@ Load → Through relay terminal (NO/COM)
 
 ## Real Serial Monitor Output
 
+temperature-control-system/docs/Serial-monitor-output
 
 ---
 
