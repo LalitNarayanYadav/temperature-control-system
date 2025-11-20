@@ -16,15 +16,15 @@ This project demonstrates sensor–actuator integration, embedded programming, a
 
 | Component | Description |
 |----------|-------------|
-| Arduino Mega / Uno | Main microcontroller board |
+| Arduino Mega  | Main microcontroller board |
 | DHT11 | Temperature & humidity sensor |
-| 12V DC Fan | Cooling fan with PWM speed control |
-| Peltier Module (TEC1-12706) | Thermoelectric cooling module |
-| N-channel MOSFET driver | To drive fan & Peltier safely |
-| LiPo Battery / 12V Adapter | External power for fan + Peltier |
-| Breadboard, jumper wires | Wiring setup |
-| Diode (1N4007) | Back EMF protection for fan |
-
+| 12V DC Fan (PWM-Controlled) | Cooling fan with variable speed |
+| Peltier Module (TEC1-12706) | Thermoelectric cooler |
+| N-channel MOSFET ( IRLZ44N) | Drives fan and Peltier |
+| Relay Module (5V/12V) | Switches higher load devices |
+| Potentiometer (10kΩ) | Adjusts set temperature |
+| LiPo Battery / 12V Adapter | External power for actuators |
+| Breadboard & wires | Hardware connections |
 ---
 
 ## Circuit Diagram (Textual Description)
@@ -36,49 +36,71 @@ DHT11 DATA → D2
 
 ---
 
+### **Potentiometer (Set Temperature Control)**
+Left pin → 5V
+Right pin → GND
+Middle pin → A0 (analog input)
+
+---
+
 ### **Fan PWM Wiring (via MOSFET)**
-D9 (PWM) → MOSFET Gate
-Fan + → External 12V
-Fan - → MOSFET Drain → GND
+Fan + → 12V
+Fan - → MOSFET Drain
+MOSFET Source → GND
+MOSFET Gate → D9 (PWM)
 
 ---
 
 ### **Peltier Module Wiring**
-D10 → MOSFET Gate
 Peltier + → 12V
-Peltier - → MOSFET Drain → GND
+Peltier - → MOSFET Drain
+MOSFET Gate → D10
+GND → Common Ground
+
+---
+
+### **Relay Module**
+Relay IN → D7
+Relay VCC → 5V
+Relay GND → GND
+Load → Through relay terminal (NO/COM)
 
 ---
 
 
-### Important Notes
-- Common GND between Arduino and 12V supply  
-- Use MOSFETs for high current loads  
-- Do NOT power Peltier directly from Arduino  
+### ⚠ Important Notes
+- Arduino GND and battery GND **must be common**  
+- Do NOT power fan or Peltier directly from Arduino  
+- Include diode protection for inductive loads  
+- Use heatsinks with Peltier and MOSFET  
 
 ---
 
 ## Project Logic
 
-1. Read temperature from DHT11 every 1 second  
-2. Compare with set temperature (e.g., 29°C)  
-3. Adjust fan speed based on temperature difference  
-
-| Condition | Fan PWM | Meaning |
-|----------|---------|---------|
-| Temp ≤ Set Temp | 0% | Off |
-| Temp − Set ≤ 1°C | 12% | Low |
-| Temp − Set ≤ 2°C | 25% | Medium |
-| Temp − Set ≤ 3°C | 38% | High |
-| Temp − Set > 3°C | 100% | Full speed |
-
-4. If temperature rises 2°C above setpoint → Peltier ON  
-5. Display real-time output on Serial Monitor  
+1. **Potentiometer** sets the target temperature (e.g., range 20°C–40°C).  
+2. **DHT11** reads temperature every 1 second.  
+3. Fan speed is adjusted using PWM based on temperature difference.  
+4. **Relay** activates/deactivates auxiliary cooling if temperature exceeds threshold (optional).  
+5. **Peltier module** activates when temperature rises significantly above target.  
+6. System prints all values in real time.
 
 ---
 
-## Real Serial Monitor Output
+## PWM Control Logic
 
+| Difference (Temp – SetTemp) | Fan PWM | Peltier | Relay |
+|-----------------------------|---------|---------|--------|
+| ≤ 0°C                       | 0%      | OFF     | OFF    |
+| 0–1°C                       | 12%     | OFF     | OFF    |
+| 1–2°C                       | 25%     | OFF     | OFF    |
+| 2–3°C                       | 38%     | OFF     | ON     |
+| > 3°C                        | 100%    | ON      | ON     |
+
+---
+
+
+## Real Serial Monitor Output
 
 
 ---
